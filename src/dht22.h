@@ -19,6 +19,7 @@ typedef enum dht22_state {
 // dht22 driver instance
 typedef struct dht22 {
     dht22_state_t state;    // current state
+    uint32_t state_since;   // timestamp in us of last state change
     uint pin;               // gpio pin of dht22 signal
     int16_t humidity;       // latest humidity measurement
     int16_t temperature;    // latest temperature measurement
