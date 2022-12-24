@@ -10,6 +10,15 @@ static void state_transition(dht22_t *dht, dht22_state_t new_state) {
     dht->state_since = time_us_32();
 }
 
+// check data using checksum
+static bool is_valid_data(uint64_t data) {
+    uint8_t acc = 0;
+    for (int i = 8; i < 40; i += 8) {
+        acc += (data >> i) & 0xFF;
+    }
+    return acc == (data & 0xFF);
+}
+
 // dispose dht22 instance, releases all resources
 void dht22_dispose(dht22_t *dht) {
     gpio_deinit(dht->pin);
@@ -125,10 +134,16 @@ void dht22_task(dht22_t *dht) {
             // count bits, finish after 40
             dht->bits_received++;
             if (dht->bits_received == 40) {
-                state_transition(dht, COOLDOWN);
-                // TODO: checksum etc.
-                dht->humidity = (dht->bits_buffer >> 24) & 0xFFFF;
-                dht->temperature = (dht->bits_buffer >> 8) & 0xFFFF;
+                // verify checksum and calculate results
+                if (is_valid_data(dht->bits_buffer)) {
+                    dht->humidity = (dht->bits_buffer >> 24) & 0xFFFF;
+                    bool negative = (dht->bits_buffer >> 8) & 0x8000;
+                    dht->temperature = ((dht->bits_buffer >> 8) & 0x7FFF) * (negative ? -1 : 1);
+                    state_transition(dht, COOLDOWN);
+                } else {
+                    state_transition(dht, ERROR);
+                    // printf("Checksum verification failed\n");
+                }
             } else {
                 state_transition(dht, BIT_LOW_TIME);
             }
