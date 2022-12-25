@@ -109,16 +109,17 @@ int main() {
     gpio_set_dir(LED_PIN, GPIO_OUT);
     gpio_put(LED_PIN, 1);
 
-    // dht config
-    dht22_t dht;
-    dht22_init(&dht, DHT_PIN);
-
     // lcd config
     lcd1602_init(&lcd);
     lcd1602_set_display_on(&lcd, true, false, false);
     lcd1602_write_string(&lcd, "Hi there! :)");
     lcd1602_set_cursor_pos(&lcd, 1, 0);
     lcd1602_write_string(&lcd, "Switch: Min-Max");
+
+    // dht config
+    dht22_t dht;
+    dht22_init(&dht, DHT_PIN);
+    sleep_ms(1000); // 1s cooldown
 
     // switch config
     gpio_init(SW_PIN);
