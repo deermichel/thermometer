@@ -8,7 +8,8 @@ set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
 
 add_executable(thermometer
-    main.c
+    src/dht22.c
+    src/main.c
 )
 
 pico_enable_stdio_uart(thermometer 1)
@@ -16,4 +17,5 @@ pico_enable_stdio_usb(thermometer 1)
 
 pico_add_extra_outputs(thermometer)
 
+target_compile_options(thermometer PRIVATE -Wall -Wextra -Werror)
 target_link_libraries(thermometer pico_stdlib)
