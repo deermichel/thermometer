@@ -2,6 +2,8 @@
 Welcome to my Raspberry Pico hello world project, a breadboard thermometer featuring a [DHT22 sensor](https://www.adafruit.com/product/385) and a [16x2 LCD](https://www.adafruit.com/product/181).
 I challenged myself to write the drivers from scratch based on some crappy chinasheets - so handle with care ;).
 
+![Assembled thermometer on a breadboard](thermometer.jpg)
+
 ## Features
 - Display current temperature and humidity (updates every 30s)
 - Minimum and maximum values, press switch to toggle screen, hold switch to reset values
