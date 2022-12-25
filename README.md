@@ -6,6 +6,7 @@ I challenged myself to write the drivers from scratch based on some crappy china
 
 ## Features
 - Display current temperature and humidity (updates every 30s)
+- Trend indicator: steady, rising, falling
 - Minimum and maximum values, press switch to toggle screen, hold switch to reset values
 - Maybe some bugs because embedded is *fun*
 

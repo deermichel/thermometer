@@ -57,7 +57,7 @@ int main() {
     while (!dht22_is_ready(&dht) && !dht22_has_error(&dht)) dht22_task(&dht);
 
     // app init
-    app_init(SW_PIN, dht22_get_temperature(&dht), dht22_get_humidity(&dht));
+    app_init(&lcd, SW_PIN, dht22_get_temperature(&dht), dht22_get_humidity(&dht));
 
     // runloop
     while (1) {

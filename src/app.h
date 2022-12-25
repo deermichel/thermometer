@@ -9,7 +9,7 @@
 void app_dispose();
 
 // init app with switch pin and initial values
-void app_init(uint sw_pin, int16_t temperature, int16_t humidity);
+void app_init(lcd1602_t *lcd, uint sw_pin, int16_t temperature, int16_t humidity);
 
 // app task to be called in runloop
 void app_task(lcd1602_t *lcd);

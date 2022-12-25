@@ -25,6 +25,9 @@ void lcd1602_init(lcd1602_t *lcd);
 // set cursor position
 void lcd1602_set_cursor_pos(lcd1602_t *lcd, uint8_t row, uint8_t col);
 
+// set custom character
+void lcd1602_set_custom_char(lcd1602_t *lcd, uint8_t index, const uint8_t *pattern);
+
 // set display, cursor, blink on/off
 void lcd1602_set_display_on(lcd1602_t *lcd, bool display, bool cursor, bool blink);
 

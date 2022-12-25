@@ -84,6 +84,17 @@ void lcd1602_set_cursor_pos(lcd1602_t *lcd, uint8_t row, uint8_t col) {
     send_8bit(lcd, 0, 0x80 | address);
 }
 
+// set custom character
+void lcd1602_set_custom_char(lcd1602_t *lcd, uint8_t index, const uint8_t *pattern) {
+    // RS D7 D6 D5 D4 D3 D2 D1 D0
+    //  0  0  1 A5 A4 A3 A2 A1 A0
+    send_8bit(lcd, 0, 0x40 | (index * 8)); // set cgram address
+    for (int i = 0; i < 8; i++) {
+        send_8bit(lcd, 1, pattern[i]); // send cgram data
+    }
+    send_8bit(lcd, 0, 0x80); // reset cursor -> use ddram
+}
+
 // set display, cursor, blink on/off
 void lcd1602_set_display_on(lcd1602_t *lcd, bool display, bool cursor, bool blink) {
     // RS D7 D6 D5 D4 D3 D2 D1 D0
