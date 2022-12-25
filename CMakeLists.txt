@@ -9,6 +9,7 @@ pico_sdk_init()
 
 add_executable(thermometer
     src/dht22.c
+    src/lcd1602.c
     src/main.c
 )
 
